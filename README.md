@@ -1,6 +1,8 @@
 # Librería Arduino Parser
 La librería Arduino Parser implementa funciones para interpretar de forma sencilla la información contenida en un char Array o en un String. Dispone de funciones para leer números, subcadenas, buscar un caracter, así como varias funciones para desplazarse o buscar a lo largo del buffer.
+
 Está diseñado para trabajar con un array recibido por un medio de comunicación (por ejemplo, puerto serie), pero el Parser no realiza la recepción ni modifica los datos. De esta forma es posible emplearlo con cualquier char array, independientemente de su origen.
+
 Arduino Parser está diseñado para trabajar junto con la librería AsyncSerial, que realiza la recepción de datos por puerto de serie de forma no bloqueante.
 
 Más información https://www.luisllamas.es/libreria-arduino-parser/
