@@ -419,6 +419,11 @@ bool Parser::Compare(char token[], size_t max_length, ParserCallback callback)
 	return found;
 }
 
+bool Parser::Compare(String token, ParserCallback callback)
+{
+	return Compare(token.c_str, token.length(), callback);
+}
+
 bool Parser::Compare(ParserCriterion comparision, ParserCallback callback)
 {
 	if (CurrentIndex >= _bufferLength) return false;
@@ -462,6 +467,11 @@ bool Parser::Search(char token[], size_t max_length, ParserCallback callback)
 		}
 	}
 	return false;
+}
+
+bool Parser::Search(String token, ParserCallback callback)
+{
+	return Search(token.c_str, token.length(), callback);
 }
 
 bool Parser::Search(ParserCriterion comparision, ParserCallback callback)

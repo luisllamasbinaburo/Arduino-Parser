@@ -84,12 +84,14 @@ public:
 	bool Compare(char token, ParserCallback callback = nullptr);
 	bool Compare(char token[], ParserCallback callback = nullptr);
 	bool Compare(char token[], size_t max_length, ParserCallback callback = nullptr);
+	bool Compare(String token, ParserCallback callback = nullptr);
 	bool Compare(ParserCriterion comparision, ParserCallback callback = nullptr);
 
 	// Search methods
 	bool Search(char token, ParserCallback callback = nullptr);
 	bool Search(char token[], ParserCallback callback = nullptr);
 	bool Search(char token[], size_t max_length, ParserCallback callback = nullptr);
+	bool Search(String token, ParserCallback callback = nullptr);
 	bool Search(ParserCriterion criterion, ParserCallback callback = nullptr);
 
 	// Loop-if methods
