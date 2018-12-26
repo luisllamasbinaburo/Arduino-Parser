@@ -404,11 +404,11 @@ void loop()
 		[]()-> bool { return parser.Search(Parser::IsSeparator); },
 		// Callback
 		[]() { Serial.print("Recieved:");
-			   Serial.println(parser.Read_String(Parser::IsSeparator)); 
-			   parser.SkipWhile(Parser::IsSeparator); },
+		       Serial.println(parser.Read_String(Parser::IsSeparator)); 
+		       parser.SkipWhile(Parser::IsSeparator); },
 		//Finally
 		[]() { Serial.print("Finally:"); 
-			   Serial.println(parser.Read_String(Parser::IsSeparator)); }
+		       Serial.println(parser.Read_String(Parser::IsSeparator)); }
 	);
 
 	parser.Reset();
@@ -419,13 +419,13 @@ void loop()
 		[]()-> bool { return parser.Search(Parser::IsSeparator); },
 		// Callback
 		[]() { parser.Read_String(Parser::IsSeparator, 
-				[](String& data) {	Serial.print("Recieved:"); 
-									Serial.println(data); }); 
-									parser.SkipWhile(Parser::IsSeparator); },
+				[](String& data) { Serial.print("Recieved:"); 
+						   Serial.println(data); }); 
+						   parser.SkipWhile(Parser::IsSeparator); },
 		//Finally
 		[]() { parser.Read_String(Parser::IsSeparator,
-				[](String& data) {	Serial.print("Finally:"); 
-									Serial.println(data); }); }
+				[](String& data) { Serial.print("Finally:"); 
+						   Serial.println(data); }); }
 	);
 
 	parser.Reset();
