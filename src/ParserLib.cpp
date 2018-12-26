@@ -9,6 +9,15 @@ Unless required by applicable law or agreed to in writing, software distributed 
  
 #include "ParserLib.h"
 
+Parser::Parser(size_t default_command_length)
+{
+}
+
+Parser::Parser(String & buffer, size_t default_command_length)
+{
+	Init(buffer, DEFAULT_COMMAND_LENGTH);
+}
+
 Parser::Parser(byte * buffer, size_t bufferLength, size_t default_command_length)
 {
 	Init(buffer, bufferLength, DEFAULT_COMMAND_LENGTH);
@@ -153,7 +162,13 @@ float Parser::Read_Float(ParserCallbackFloat callback)
 	int dataPow = 1;
 	bool isDecimalStage = false;
 
-	bool isNegative = _buffer[CurrentIndex] == '-';
+	bool isNegative = false;
+	if (_buffer[CurrentIndex] == '-')
+	{
+		isNegative = true;
+		CurrentIndex++;
+	}
+
 
 	while (CurrentIndex < _bufferLength)
 	{
@@ -312,11 +327,10 @@ String Parser::Read_String(char separator, bool endIfNotFound, ParserCallbackStr
 		}
 		length++;
 	}
-	CurrentIndex += length + (found ? 1 : 0);
+	CurrentIndex += length;//+ (found ? 1 : 0);
 
 	if ((endIfNotFound || (!endIfNotFound && found)))
 	{
-		String rst;
 		rst.reserve(length);
 		for (size_t i = 0; i < length; i++)
 			rst.concat(start[i]);
@@ -344,11 +358,10 @@ String Parser::Read_String(ParserCriterion criterion, bool endIfNotFound, Parser
 		length++;
 	}
 
-	CurrentIndex += length + (found ? 1 : 0);
+	CurrentIndex += length;
 
 	if ((endIfNotFound || (!endIfNotFound && found)))
 	{
-		String rst;
 		rst.reserve(length);
 		for (size_t i = 0; i < length; i++)
 			rst.concat(start[i]);
@@ -386,7 +399,7 @@ bool Parser::Compare(char token[], size_t max_length, ParserCallback callback)
 	bool found = false;
 	if (compare((char*)_buffer, token, max_length))
 	{
-	
+
 		if (callback != nullptr) callback();
 		found = true;
 	}
@@ -510,7 +523,7 @@ void Parser::DoWhile(ParserCondition condition, ParserCallback callback, ParserC
 {
 	while (condition())
 	{
-		if(callback != nullptr) callback();
+		if (callback != nullptr) callback();
 	}
 	if (finally != nullptr) finally();
 }
@@ -698,7 +711,7 @@ inline bool Parser::compare(char * str1, char * str2, size_t n)
 		}
 
 		newIndex++;
-		
+
 	}
 
 	if (equals) CurrentIndex = newIndex;

@@ -7,8 +7,10 @@ Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License
  ****************************************************/
  
- #ifndef _ParserLIB_h
-#define _ParserLIB_h
+// ParserLib.h
+
+#ifndef _PARSERLIB_h
+#define _PARSERLIB_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
 	#include "arduino.h"
@@ -36,101 +38,103 @@ typedef bool(*ParserCriterion)(byte data);
 class Parser
 {
 public:
-	 Parser(byte* buffer, size_t bufferLength, size_t default_command_length = 5);
+	Parser(size_t default_command_length = 5);
+	Parser(String& buffer, size_t default_command_length = 5);
+	Parser(byte* buffer, size_t bufferLength, size_t default_command_length = 5);
 
-	 void Init(byte* buffer, size_t bufferLength, size_t default_command_length = 5);
-	 void Init(String& buffer, size_t default_command_length = 5);
-	
-	 size_t DEFAULT_COMMAND_LENGTH;
-	 size_t CurrentIndex;
-	 char* CurrentItemPointer();
-	 char CurrentItem();
-	 void Reset();
-	 inline bool IsBufferOverflow();
+	void Init(byte* buffer, size_t bufferLength, size_t default_command_length = 5);
+	void Init(String& buffer, size_t default_command_length = 5);
 
-	 // Read methods
-	 bool	  Read_Bool(ParserCallbackBool callback = nullptr);
-	 char     Read_Char(ParserCallbackChar callback = nullptr);
-	 byte     Read_Byte(ParserCallbackByte callback = nullptr);
-	 int8_t   Read_Int8(ParserCallbackInt8 callback = nullptr);
-	 int16_t  Read_Int16(ParserCallbackInt16 callback = nullptr);
-	 int32_t  Read_Int32(ParserCallbackInt32 callback = nullptr);
-	 uint8_t  Read_Uint8(ParserCallbackUint8 callback = nullptr);
-	 uint16_t Read_Uint16(ParserCallbackUint16 callback = nullptr);
-	 uint32_t Read_Uint32(ParserCallbackUint32 callback = nullptr);
+	size_t DEFAULT_COMMAND_LENGTH;
+	size_t CurrentIndex;
+	char* CurrentItemPointer();
+	char CurrentItem();
+	void Reset();
+	inline bool IsBufferOverflow();
 
-	 float Read_Float(ParserCallbackFloat callback = nullptr);
-	 float Read_UnsignedFloat(ParserCallbackFloat callback = nullptr);
-	 
-	 size_t Read_CharArray(char separator, ParserCallbackCharArray callback = nullptr);
-	 size_t Read_CharArray(ParserCriterion criterion, ParserCallbackCharArray callback = nullptr);
-	 size_t Read_CharArray(char separator, bool endIfNotFound, ParserCallbackCharArray callback = nullptr);
-	 size_t Read_CharArray(ParserCriterion criterion, bool endIfNotFound, ParserCallbackCharArray callback = nullptr);
+	// Read methods
+	bool	  Read_Bool(ParserCallbackBool callback = nullptr);
+	char     Read_Char(ParserCallbackChar callback = nullptr);
+	byte     Read_Byte(ParserCallbackByte callback = nullptr);
+	int8_t   Read_Int8(ParserCallbackInt8 callback = nullptr);
+	int16_t  Read_Int16(ParserCallbackInt16 callback = nullptr);
+	int32_t  Read_Int32(ParserCallbackInt32 callback = nullptr);
+	uint8_t  Read_Uint8(ParserCallbackUint8 callback = nullptr);
+	uint16_t Read_Uint16(ParserCallbackUint16 callback = nullptr);
+	uint32_t Read_Uint32(ParserCallbackUint32 callback = nullptr);
 
-	 String Read_String(char separator, ParserCallbackString callback = nullptr);
-	 String Read_String(ParserCriterion criterion, ParserCallbackString callback = nullptr);
-	 String Read_String(char separator, bool endIfNotFound, ParserCallbackString callback = nullptr);
-	 String Read_String(ParserCriterion criterion, bool endIfNotFound, ParserCallbackString callback = nullptr);
+	float Read_Float(ParserCallbackFloat callback = nullptr);
+	float Read_UnsignedFloat(ParserCallbackFloat callback = nullptr);
 
+	size_t Read_CharArray(char separator, ParserCallbackCharArray callback = nullptr);
+	size_t Read_CharArray(ParserCriterion criterion, ParserCallbackCharArray callback = nullptr);
+	size_t Read_CharArray(char separator, bool endIfNotFound, ParserCallbackCharArray callback = nullptr);
+	size_t Read_CharArray(ParserCriterion criterion, bool endIfNotFound, ParserCallbackCharArray callback = nullptr);
 
-	 // Compare methods
-	 bool Compare(char token, ParserCallback callback = nullptr);
-	 bool Compare(char token[], ParserCallback callback = nullptr);
-	 bool Compare(char token[], size_t max_length, ParserCallback callback = nullptr);
-	 bool Compare(ParserCriterion comparision, ParserCallback callback = nullptr);
-
-	 // Search methods
-	 bool Search(char token, ParserCallback callback = nullptr);
-	 bool Search(char token[], ParserCallback callback = nullptr);
-	 bool Search(char token[], size_t max_length, ParserCallback callback = nullptr);
-	 bool Search(ParserCriterion criterion, ParserCallback callback = nullptr);
-
-	 // Loop-if methods
-	 bool IfCurrentIs(char token, ParserCallback yesCallback = nullptr, ParserCallback noCallback = nullptr);
-	 bool IfCurrentIs(ParserCriterion criterion, ParserCallback yesCallback = nullptr, ParserCallback noCallback = nullptr);
-	 bool IfCurrentIsNot(char token, ParserCallback yesCallback = nullptr, ParserCallback noCallback = nullptr);
-	 bool IfCurrentIsNot(ParserCriterion criterion, ParserCallback yesCallback = nullptr, ParserCallback noCallback = nullptr);
-	 void DoUntil(ParserCondition condition, ParserCallback callback = nullptr, ParserCallback finally = nullptr);
-	 void DoWhile(ParserCondition condition, ParserCallback callback = nullptr, ParserCallback finally = nullptr);
-
-	 // Skip methods
-	 void Skip(size_t num_items);
-	 void SkipWhile(char item);
-	 void SkipWhile(ParserCriterion comparision);
-	 void SkipUntil(char item);
-	 void SkipUntil(ParserCriterion comparision);
-
-	 // Jump methods
-	 void JumpAfter(char item);
-	 void JumpAfter(ParserCriterion comparision);
-	 void JumpTo(char item);
-	 void JumpTo(ParserCriterion comparision);
+	String Read_String(char separator, ParserCallbackString callback = nullptr);
+	String Read_String(ParserCriterion criterion, ParserCallbackString callback = nullptr);
+	String Read_String(char separator, bool endIfNotFound, ParserCallbackString callback = nullptr);
+	String Read_String(ParserCriterion criterion, bool endIfNotFound, ParserCallbackString callback = nullptr);
 
 
-	 // Comparision static methods
-	 static bool IsPrintable(byte item);
-	 static bool IsAlfaNumeric(byte Item);
-	 static bool IsNotDigit(byte Item);
-	 static bool IsDigit(byte item);
-	 static bool IsNumeric(byte item);
-	 static bool IsLetter(byte item);
-	 static bool IsUpperCaseLetter(byte item);
-	 static bool IsLowercasaLetter(byte item);
-	 static bool IsSeparator(byte item);
-	 static bool IsSymbol(byte item);
-	 static bool IsNewLine(byte item);
+	// Compare methods
+	bool Compare(char token, ParserCallback callback = nullptr);
+	bool Compare(char token[], ParserCallback callback = nullptr);
+	bool Compare(char token[], size_t max_length, ParserCallback callback = nullptr);
+	bool Compare(ParserCriterion comparision, ParserCallback callback = nullptr);
+
+	// Search methods
+	bool Search(char token, ParserCallback callback = nullptr);
+	bool Search(char token[], ParserCallback callback = nullptr);
+	bool Search(char token[], size_t max_length, ParserCallback callback = nullptr);
+	bool Search(ParserCriterion criterion, ParserCallback callback = nullptr);
+
+	// Loop-if methods
+	bool IfCurrentIs(char token, ParserCallback yesCallback = nullptr, ParserCallback noCallback = nullptr);
+	bool IfCurrentIs(ParserCriterion criterion, ParserCallback yesCallback = nullptr, ParserCallback noCallback = nullptr);
+	bool IfCurrentIsNot(char token, ParserCallback yesCallback = nullptr, ParserCallback noCallback = nullptr);
+	bool IfCurrentIsNot(ParserCriterion criterion, ParserCallback yesCallback = nullptr, ParserCallback noCallback = nullptr);
+	void DoUntil(ParserCondition condition, ParserCallback callback = nullptr, ParserCallback finally = nullptr);
+	void DoWhile(ParserCondition condition, ParserCallback callback = nullptr, ParserCallback finally = nullptr);
+
+	// Skip methods
+	void Skip(size_t num_items);
+	void SkipWhile(char item);
+	void SkipWhile(ParserCriterion comparision);
+	void SkipUntil(char item);
+	void SkipUntil(ParserCriterion comparision);
+
+	// Jump methods
+	void JumpAfter(char item);
+	void JumpAfter(ParserCriterion comparision);
+	void JumpTo(char item);
+	void JumpTo(ParserCriterion comparision);
+
+
+	// Comparision static methods
+	static bool IsPrintable(byte item);
+	static bool IsAlfaNumeric(byte Item);
+	static bool IsNotDigit(byte Item);
+	static bool IsDigit(byte item);
+	static bool IsNumeric(byte item);
+	static bool IsLetter(byte item);
+	static bool IsUpperCaseLetter(byte item);
+	static bool IsLowercasaLetter(byte item);
+	static bool IsSeparator(byte item);
+	static bool IsSymbol(byte item);
+	static bool IsNewLine(byte item);
 
 protected:
-	 byte* _buffer;
-	 size_t _bufferLength;
-	 inline void increaseIndex();
-	 inline bool compare(char* str1, char* str2, size_t n);
+	byte* _buffer;
+	size_t _bufferLength;
+	inline void increaseIndex();
+	inline bool compare(char* str1, char* str2, size_t n);
 
-	 template <class T_int>
-	 T_int readInteger();
+	template <class T_int>
+	T_int readInteger();
 
-	 template <class T_uint>
-	 T_uint readUnsignedInteger();
+	template <class T_uint>
+	T_uint readUnsignedInteger();
 };
 
 #endif
@@ -140,7 +144,12 @@ T_int Parser::readInteger()
 {
 	T_int rst = 0;
 
-	bool isNegative = _buffer[CurrentIndex] == "-";
+	bool isNegative = false;
+	if (_buffer[CurrentIndex] == '-')
+	{
+		isNegative = true;
+		CurrentIndex++;
+	}
 
 	while (CurrentIndex < _bufferLength)
 	{
