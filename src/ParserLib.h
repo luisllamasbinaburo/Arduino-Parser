@@ -41,7 +41,10 @@ public:
 	Parser(size_t default_command_length = 5);
 	Parser(String& buffer, size_t default_command_length = 5);
 	Parser(byte* buffer, size_t bufferLength, size_t default_command_length = 5);
+	Parser(char* buffer, size_t bufferLength, size_t default_command_length = 5);
 
+
+	void Init(char* buffer, size_t bufferLength, size_t default_command_length = 5);
 	void Init(byte* buffer, size_t bufferLength, size_t default_command_length = 5);
 	void Init(String& buffer, size_t default_command_length = 5);
 

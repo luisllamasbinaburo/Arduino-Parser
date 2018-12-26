@@ -18,7 +18,12 @@ Parser::Parser(String & buffer, size_t default_command_length)
 	Init(buffer, DEFAULT_COMMAND_LENGTH);
 }
 
-Parser::Parser(byte * buffer, size_t bufferLength, size_t default_command_length)
+Parser::Parser(byte* buffer, size_t bufferLength, size_t default_command_length)
+{
+	Init(buffer, bufferLength, DEFAULT_COMMAND_LENGTH);
+}
+
+Parser::Parser(char * buffer, size_t bufferLength, size_t default_command_length)
 {
 	Init(buffer, bufferLength, DEFAULT_COMMAND_LENGTH);
 }
@@ -31,11 +36,19 @@ void Parser::Init(byte * buffer, size_t bufferLength, size_t default_command_len
 	CurrentIndex = 0;
 }
 
-void Parser::Init(String& buffer, size_t default_command_length)
+void Parser::Init(char * buffer, size_t bufferLength, size_t default_command_length)
 {
-	Init((byte*)buffer.c_str(), buffer.length());
+	_buffer = (byte*)buffer;
+	_bufferLength = bufferLength;
+	DEFAULT_COMMAND_LENGTH = 5;
+	CurrentIndex = 0;
 }
 
+
+void Parser::Init(String& buffer, size_t default_command_length)
+{
+	Init((char*)buffer.c_str(), buffer.length());
+}
 
 
 char * Parser::CurrentItemPointer()
