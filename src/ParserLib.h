@@ -123,11 +123,14 @@ public:
 	static bool IsDigit(byte item);
 	static bool IsNumeric(byte item);
 	static bool IsLetter(byte item);
+	static bool IsNotLetter(byte item);
 	static bool IsUpperCaseLetter(byte item);
 	static bool IsLowercasaLetter(byte item);
-	static bool IsSeparator(byte item);
 	static bool IsSymbol(byte item);
+	static bool IsSeparator(byte item);
 	static bool IsNewLine(byte item);
+	static bool IsCarriageReturn(byte item);
+	static bool IsSeparatorOrNewLine(byte item);
 
 protected:
 	byte* _buffer;

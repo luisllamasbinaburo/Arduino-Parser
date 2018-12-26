@@ -421,7 +421,7 @@ bool Parser::Compare(char token[], size_t max_length, ParserCallback callback)
 
 bool Parser::Compare(String token, ParserCallback callback)
 {
-	return Compare(token.c_str, token.length(), callback);
+	return Compare((char*)token.c_str(), token.length(), callback);
 }
 
 bool Parser::Compare(ParserCriterion comparision, ParserCallback callback)
@@ -471,7 +471,7 @@ bool Parser::Search(char token[], size_t max_length, ParserCallback callback)
 
 bool Parser::Search(String token, ParserCallback callback)
 {
-	return Search(token.c_str, token.length(), callback);
+	return Search((char*)token.c_str(), token.length(), callback);
 }
 
 bool Parser::Search(ParserCriterion comparision, ParserCallback callback)
@@ -680,6 +680,11 @@ bool Parser::IsLetter(byte item)
 	return IsUpperCaseLetter(item) || IsLowercasaLetter(item);
 }
 
+bool Parser::IsNotLetter(byte item)
+{
+	return !IsLetter(item);
+}
+
 bool Parser::IsUpperCaseLetter(byte item)
 {
 	return item >= 'A' && item <= 'Z';
@@ -692,7 +697,7 @@ bool Parser::IsLowercasaLetter(byte item)
 
 bool Parser::IsSeparator(byte item)
 {
-	return item == '.' || item == ',' || item == ';' || item == ' ' || item == '_' || item == '-' || item == '#' || item == '\0';
+	return item == '.' || item == ',' || item == ';' || item == ' ' || item == '_' || item == '-' || item == '#' || item == '?' || item == '\0';
 }
 
 bool Parser::IsSymbol(byte item)
@@ -705,6 +710,16 @@ bool Parser::IsNewLine(byte item)
 	return item == '\n';
 }
 
+
+bool Parser::IsCarriageReturn(byte item)
+{
+	return item == '\r';
+}
+
+bool Parser::IsSeparatorOrNewLine(byte item)
+{
+	return IsSeparator(item) || IsNewLine(item);
+}
 
 
 // Private methods
