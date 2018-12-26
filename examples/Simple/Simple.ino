@@ -9,7 +9,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
  
 #include "ParserLib.h"
 
-char demo[] = "AA-123#CC;;276.56__-,;#__abcd-16";
+char demo[] = "AA-123#CC;;;276.56__-,;#__abcd-16";
 int demoLength = strlen(demo);
 
 Parser parser((byte*)demo, demoLength);
@@ -31,10 +31,10 @@ void loop()
 	parser.Skip(1); //Ignore '-'
 
 	Serial.println(parser.Read_Int16()); // Read INT16 (123)
-	parser.Skip(1); //Ignore '#'
+	parser.Skip('#'); //Ignore '#'
 
 	Serial.println(parser.Read_String(';')); // Read string until ; (CC)
-	parser.SkipWhile(';');   // Ignore ;;
+	parser.SkipWhile(';');   // Ignore ;;;
 
 	Serial.println(parser.Read_Float());  //Read Float (276.56)
 	parser.SkipWhile(Parser::IsSeparator);   // Ignore separators __-,;#__
