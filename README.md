@@ -114,7 +114,7 @@ Los métodos 'Skip(...) permiten ignorar ciertos elementos del buffer y avanzar 
 void Skip(size_t num_items);  //avanza N elementos
 void SkipWhile(char item);	  //avanza mientras se cumple la condición
 void SkipWhile(ParserCriterion comparision);
-void SkipUntil(char item); 	  //avanza mientras se cumple la condición
+void SkipUntil(char item); 	  //avanza hasta que se cumple la condición
 void SkipUntil(ParserCriterion comparision);
 ```
 
