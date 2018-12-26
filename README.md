@@ -252,11 +252,11 @@ void loop()
 	Serial.println("--- Demo loop ---");
 	parser.Compare("LED", 3,
 		[]() { 	Serial.print("Recieved LED N:");
-				parser.SkipWhile(Parser::IsSeparator);
-				Serial.print(parser.Read_Uint8());
-				parser.SkipWhile(Parser::IsSeparator);
-				parser.Compare("ON", 2, []() {Serial.println(" Action: TURN_ON"); });
-				parser.Compare("OFF", 3, []() {Serial.println(" ACTION: TURN_OFF"); });
+			parser.SkipWhile(Parser::IsSeparator);
+			Serial.print(parser.Read_Uint8());
+			parser.SkipWhile(Parser::IsSeparator);
+			parser.Compare("ON", 2, []() {Serial.println(" Action: TURN_ON"); });
+			parser.Compare("OFF", 3, []() {Serial.println(" ACTION: TURN_OFF"); });
 	});
 
 	parser.Reset();
@@ -285,11 +285,11 @@ void loop()
 	Serial.println("--- Demo loop ---");
 	parser.Compare("SERVO", 5,
 		[]() { 	Serial.print("Recieved SERVO N:");
-				uint8_t servo = parser.Read_Uint8();
-				Serial.print(servo);
-				parser.SkipWhile(Parser::IsSeparator);
-				Serial.print(" Angle:");
-				Serial.println(parser.Read_Float());
+			uint8_t servo = parser.Read_Uint8();
+			Serial.print(servo);
+			parser.SkipWhile(Parser::IsSeparator);
+			Serial.print(" Angle:");
+			Serial.println(parser.Read_Float());
 	});
 
 	parser.Reset();
