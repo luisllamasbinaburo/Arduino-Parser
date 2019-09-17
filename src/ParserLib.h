@@ -13,7 +13,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 #define _PARSERLIB_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
+	#include "Arduino.h"
 #else
 	#include "WProgram.h"
 #endif
